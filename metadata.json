@@ -1,0 +1,6 @@
+{
+  "name": "The Editing Kart",
+  "description": "Premium multi-page portfolio for 'The Editing Kart' specializing in high-end Video Editing, 3D and CGI services across USA, UK, Europe, Canada, Australia, and New Zealand.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
