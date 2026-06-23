@@ -16,27 +16,6 @@ const MILESTONES = [
   { year: '2026', title: 'Global Coverage', desc: 'Active nodes in North America, UK, Europe, and Oceania.' },
 ];
 
-const DIRECTORS = [
-  {
-    name: 'Marcus Vance',
-    role: 'Directing Partner / Color',
-    bio: '12+ years finishing commercials for premium automotive and luxury brands. Certified DaVinci Resolve Master instructor.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
-  },
-  {
-    name: 'Elena Rostova',
-    role: 'Technical CGI Director',
-    bio: 'Specialist in 3D camera tracking, matchmoving, and fluid simulations. Formerly VFX Supervisor on independent sci-fi features.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400',
-  },
-  {
-    name: 'Koa Henderson',
-    role: 'Head of Sound & Rhythm',
-    bio: 'Crafts bespoke soundscapes and raw foley to complement fast-paced, high-retention vertical ads.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400',
-  },
-];
-
 const LOCATIONS = [
   { name: 'USA', city: 'Los Angeles / NY', email: 'la@theeditingkart.com' },
   { name: 'UK', city: 'London, Soho', email: 'soho@theeditingkart.com' },
@@ -100,39 +79,6 @@ export default function AboutSection({ selectedCountry }: AboutSectionProps) {
         </div>
 
         {/* ── Row 2: Directors ── */}
-        <div className="space-y-10">
-          <div className="space-y-3">
-            <span className="section-kicker block">Meet the Team</span>
-            <h3 className="panel-title text-[#0A0A0A]">The minds behind the frame.</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {DIRECTORS.map((d, i) => (
-              <motion.div
-                key={d.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="pin-card overflow-hidden group"
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={d.image}
-                    alt={d.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div className="p-5 space-y-2">
-                  <span className="t-body font-bold text-[#0A0A0A] block">{d.name}</span>
-                  <span className="t-body text-[#888888] uppercase tracking-wider block" style={{ fontSize: '11px' }}>{d.role}</span>
-                  <p className="t-body text-[#444444] leading-relaxed">{d.bio}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
         {/* ── Row 3: Locations ── */}
         <div className="pin-card p-8 space-y-8">
           <div className="space-y-3">
