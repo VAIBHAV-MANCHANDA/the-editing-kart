@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { TargetCountry, TabPage } from '../types';
-import { COUNTRIES } from '../data';
-import { Globe, Menu, X, ArrowRight, Film } from 'lucide-react';
+import { TargetCountry, TabPage, ServicePageKey } from '../types';
+import { COUNTRIES, SERVICE_PAGES } from '../data';
+import { Globe, Menu, X, ArrowRight, Film, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface NavbarProps {
   activeTab: TabPage;
   setActiveTab: (tab: TabPage) => void;
+  selectedService: ServicePageKey;
+  setSelectedService: (service: ServicePageKey) => void;
   selectedCountry: TargetCountry;
   setSelectedCountry: (country: TargetCountry) => void;
 }
 
-export default function Navbar({ activeTab, setActiveTab, selectedCountry, setSelectedCountry }: NavbarProps) {
+export default function Navbar({ activeTab, setActiveTab, selectedService, setSelectedService, selectedCountry, setSelectedCountry }: NavbarProps) {
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -23,10 +26,16 @@ export default function Navbar({ activeTab, setActiveTab, selectedCountry, setSe
   }, []);
 
   const countryInfo = COUNTRIES[selectedCountry];
+  const currentService = SERVICE_PAGES.find(service => service.id === selectedService) ?? SERVICE_PAGES[0];
+
+  const openService = (service: ServicePageKey) => {
+    setSelectedService(service);
+    setIsServicesOpen(false);
+    setIsMobileMenuOpen(false);
+  };
 
   const navItems: { id: TabPage; label: string }[] = [
     { id: 'home',       label: 'Home'      },
-    { id: 'services',   label: 'Services'  },
     { id: 'portfolio',  label: 'Work'      },
     { id: 'calculator', label: 'Pricing'   },
     { id: 'about',      label: 'About'     },
@@ -51,6 +60,48 @@ export default function Navbar({ activeTab, setActiveTab, selectedCountry, setSe
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0.5">
+            <div className="relative">
+              <button
+                id="nav-item-services"
+                onClick={() => setIsServicesOpen(!isServicesOpen)}
+                className="t-body px-4 py-2 rounded-full transition-colors duration-200 font-medium flex items-center gap-1.5"
+                style={{
+                  color: activeTab === 'services' ? '#0A0A0A' : '#888888',
+                  background: activeTab === 'services' ? '#FFD600' : 'transparent',
+                }}
+              >
+                Services <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {isServicesOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsServicesOpen(false)} />
+                    <motion.div
+                      initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute left-0 mt-2 w-72 bg-white border border-[#E5E5E5] rounded-2xl shadow-xl z-50 p-2 grid grid-cols-1 gap-0.5"
+                    >
+                      {SERVICE_PAGES.map(service => {
+                        const isActive = selectedService === service.id && activeTab === 'services';
+                        return (
+                          <button
+                            key={service.id}
+                            onClick={() => openService(service.id)}
+                            className="t-body w-full text-left px-3 py-2.5 rounded-xl flex items-center justify-between gap-3 transition-colors hover:bg-[#F7F7F7]"
+                            style={{ color: isActive ? '#0A0A0A' : '#444444', fontWeight: isActive ? '600' : '400' }}
+                          >
+                            <span>{service.navLabel}</span>
+                            {isActive && <span className="w-2 h-2 rounded-full bg-[#FFD600]" />}
+                          </button>
+                        );
+                      })}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
             {navItems.map(item => {
               const isActive = activeTab === item.id;
               return (
@@ -185,6 +236,27 @@ export default function Navbar({ activeTab, setActiveTab, selectedCountry, setSe
                   </button>
                 );
               })}
+              <div className="px-4 pt-3 pb-2">
+                <span className="t-body text-[#888888] uppercase tracking-wider font-semibold block" style={{ fontSize: '11px' }}>
+                  Services
+                </span>
+                <span className="t-body text-[#0A0A0A] font-semibold block mt-1">{currentService.navLabel}</span>
+              </div>
+              <div className="grid grid-cols-1 gap-1 px-2 pb-3">
+                {SERVICE_PAGES.map(service => {
+                  const isActive = selectedService === service.id && activeTab === 'services';
+                  return (
+                    <button
+                      key={service.id}
+                      onClick={() => openService(service.id)}
+                      className="t-body block w-full text-left px-4 py-2.5 rounded-xl transition-colors font-medium"
+                      style={{ color: isActive ? '#0A0A0A' : '#888888', background: isActive ? '#FFD600' : 'transparent' }}
+                    >
+                      {service.navLabel}
+                    </button>
+                  );
+                })}
+              </div>
               <div className="pt-3 border-t border-[#E5E5E5]">
                 <button
                   id="mobile-nav-cta"

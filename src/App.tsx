@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { TargetCountry, TabPage, CreativePreset } from './types';
+import { TargetCountry, TabPage, CreativePreset, ServicePageKey } from './types';
 import { COUNTRIES } from './data';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -15,17 +15,24 @@ import AboutSection from './components/AboutSection';
 import FAQContactSection from './components/FAQContactSection';
 import CreativeDirectionPanel from './components/CreativeDirectionPanel';
 import StudioMotionStrip from './components/StudioMotionStrip';
+import ServicePage from './components/ServicePage';
 import { ArrowRight, Film, Heart, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [selectedCountry, setSelectedCountry] = useState<TargetCountry>('usa');
   const [activeTab, setActiveTab] = useState<TabPage>('home');
+  const [selectedService, setSelectedService] = useState<ServicePageKey>('video-editing');
   const [creativePreset, setCreativePreset] = useState<CreativePreset>('precision');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [activeTab]);
+  }, [activeTab, selectedService]);
+
+  const handleServiceSelect = (service: ServicePageKey) => {
+    setSelectedService(service);
+    setActiveTab('services');
+  };
 
   const activeCountryData = COUNTRIES[selectedCountry];
 
@@ -49,6 +56,7 @@ export default function App() {
             <ServicesSection
               selectedCountry={selectedCountry}
               setActiveTab={setActiveTab}
+              setSelectedService={handleServiceSelect}
               creativePreset={creativePreset}
             />
             <div className="bg-[#F7F7F7] py-20">
@@ -69,7 +77,12 @@ export default function App() {
       case 'services':
         return (
           <motion.div key="services" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <ServicesSection selectedCountry={selectedCountry} setActiveTab={setActiveTab} creativePreset={creativePreset} />
+            <ServicePage
+              selectedCountry={selectedCountry}
+              serviceId={selectedService}
+              setActiveTab={setActiveTab}
+              setSelectedService={setSelectedService}
+            />
           </motion.div>
         );
 
@@ -119,6 +132,8 @@ export default function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        selectedService={selectedService}
+        setSelectedService={handleServiceSelect}
         selectedCountry={selectedCountry}
         setSelectedCountry={setSelectedCountry}
       />

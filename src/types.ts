@@ -2,6 +2,16 @@ export type TargetCountry = 'usa' | 'uk' | 'europe' | 'canada' | 'australia' | '
 
 export type CreativePreset = 'precision' | 'soft' | 'premium' | 'documentary';
 
+export type ServicePageKey =
+  | 'video-editing'
+  | 'film-making'
+  | 'vfx-cgi'
+  | 'sound-design'
+  | '3d'
+  | 'motion-designing'
+  | 'ai-film-making'
+  | 'wedding';
+
 export interface CountryConfig {
   code: TargetCountry;
   name: string;
@@ -22,6 +32,19 @@ export interface ServiceDetail {
   detailedDesc: string;
   deliverables: string[];
   techStack: string[];
+}
+
+export interface ServicePageDetail {
+  id: ServicePageKey;
+  navLabel: string;
+  title: string;
+  kicker: string;
+  summary: string;
+  description: string;
+  videoSrc: string;
+  outcomes: string[];
+  process: string[];
+  tools: string[];
 }
 
 export interface PortfolioItem {

@@ -1,4 +1,4 @@
-import { TargetCountry, CountryConfig, PortfolioItem, Testimonial, FAQItem } from './types';
+import { TargetCountry, CountryConfig, PortfolioItem, Testimonial, FAQItem, ServicePageDetail } from './types';
 
 export const COUNTRIES: Record<TargetCountry, CountryConfig> = {
   usa: {
@@ -266,6 +266,105 @@ export const SERVICE_DETAILS_DATA = {
     techStack: ['Foundry Nuke Studio', 'Adobe After Effects', 'Unreal Engine 5', 'Syntheyes', 'DaVinci Fusion']
   }
 };
+
+export const SERVICE_PAGES: ServicePageDetail[] = [
+  {
+    id: 'video-editing',
+    navLabel: 'Video Editing',
+    title: 'Video Editing',
+    kicker: 'Editorial Studio',
+    summary: 'Sharp cuts, clean pacing, and polished finishing for ads, reels, launches, and brand films.',
+    description: 'We shape raw footage into a clear, high-retention edit with structured hooks, clean continuity, timing, transitions, sound alignment, captions, and export versions for every platform.',
+    videoSrc: VIDEO_ASSETS.videoEditing,
+    outcomes: ['Short-form reels and ads', 'Long-form YouTube edits', 'Corporate and brand films', 'Color and audio polish'],
+    process: ['Brief and footage audit', 'Assembly and rhythm pass', 'Fine cut with sound and color', 'Platform-specific masters'],
+    tools: ['Premiere Pro', 'DaVinci Resolve', 'After Effects', 'Frame.io']
+  },
+  {
+    id: 'film-making',
+    navLabel: 'Film Making',
+    title: 'Film Making',
+    kicker: 'Concept to Cut',
+    summary: 'End-to-end film planning, production direction, and post-production for commercial stories.',
+    description: 'From treatment to final master, we help structure the film, plan scenes, define visual language, and move the edit through a controlled production pipeline.',
+    videoSrc: VIDEO_ASSETS.advancedVideoEditing,
+    outcomes: ['Brand films', 'Founder stories', 'Product launch films', 'Campaign films'],
+    process: ['Creative treatment', 'Shot planning', 'Editorial structure', 'Final film delivery'],
+    tools: ['Shot decks', 'Production boards', 'Premiere Pro', 'DaVinci Resolve']
+  },
+  {
+    id: 'vfx-cgi',
+    navLabel: 'VFX & CGI',
+    title: 'VFX & CGI',
+    kicker: 'Visual Effects',
+    summary: 'Compositing, CGI integration, cleanup, visual enhancements, and cinematic effects.',
+    description: 'We combine live action with designed visual layers through tracking, keying, cleanup, CG integration, matte work, and finishing that feels intentional.',
+    videoSrc: VIDEO_ASSETS.cgiVfx,
+    outcomes: ['CGI product moments', 'Scene enhancement', 'Cleanup and object removal', 'Compositing and effects'],
+    process: ['Shot analysis', 'Tracking and prep', 'Composite build', 'Final integration pass'],
+    tools: ['After Effects', 'Nuke', 'Blender', 'DaVinci Fusion']
+  },
+  {
+    id: 'sound-design',
+    navLabel: 'Sound Design',
+    title: 'Sound Design',
+    kicker: 'Audio Finishing',
+    summary: 'Detailed sound beds, foley, voice cleanup, mix balance, and platform-ready audio masters.',
+    description: 'We give edits a finished sonic identity with clean dialogue, layered foley, music shaping, impact sounds, ambience, mix control, and loudness-aware exports.',
+    videoSrc: VIDEO_ASSETS.colorGrading,
+    outcomes: ['Dialogue cleanup', 'Foley and ambience', 'Ad impact sound design', 'Final mix and mastering'],
+    process: ['Audio audit', 'Clean and organize', 'Design and mix', 'Master for delivery'],
+    tools: ['Audition', 'Logic Pro', 'DaVinci Fairlight', 'iZotope RX']
+  },
+  {
+    id: '3d',
+    navLabel: '3D',
+    title: '3D',
+    kicker: 'Dimensional Design',
+    summary: 'Product renders, 3D motion, camera moves, lighting, materials, and animated launch visuals.',
+    description: 'We build dimensional scenes and product visuals with controlled camera language, material detail, lighting, motion, and render outputs for campaigns and explainers.',
+    videoSrc: VIDEO_ASSETS.threeD,
+    outcomes: ['Product animation', 'Exploded views', '3D launch films', 'Premium render loops'],
+    process: ['Model and scene setup', 'Materials and lighting', 'Animation pass', 'Render and composite'],
+    tools: ['Blender', 'Cinema 4D', 'Redshift', 'Octane']
+  },
+  {
+    id: 'motion-designing',
+    navLabel: 'Motion Designing',
+    title: 'Motion Designing',
+    kicker: 'Graphic Motion',
+    summary: 'Kinetic typography, title systems, UI motion, logo animation, and campaign graphics.',
+    description: 'We create motion systems that make information feel premium and easy to follow, from fast social graphics to polished brand title packages.',
+    videoSrc: VIDEO_ASSETS.advancedVideoEditing,
+    outcomes: ['Logo animation', 'Kinetic typography', 'Explainer graphics', 'Social motion packs'],
+    process: ['Style frames', 'Motion tests', 'Animation build', 'Export package'],
+    tools: ['After Effects', 'Illustrator', 'Premiere Pro', 'Lottie']
+  },
+  {
+    id: 'ai-film-making',
+    navLabel: 'AI Film Making',
+    title: 'AI Film Making',
+    kicker: 'AI Production',
+    summary: 'AI-assisted concepts, shots, sequences, and finished films shaped by human direction.',
+    description: 'We use AI as a production layer, then apply editorial judgment, pacing, cleanup, sound, and finishing so the result works as a real brand asset.',
+    videoSrc: VIDEO_ASSETS.aiOne,
+    outcomes: ['AI concept films', 'Generated scene sequences', 'Hybrid social ads', 'Pitch visuals'],
+    process: ['Prompt and concept system', 'Generation and selection', 'Edit and cleanup', 'Sound and master'],
+    tools: ['Runway', 'Midjourney', 'Premiere Pro', 'DaVinci Resolve']
+  },
+  {
+    id: 'wedding',
+    navLabel: 'Wedding',
+    title: 'Wedding Films',
+    kicker: 'Event Storytelling',
+    summary: 'Elegant wedding teasers, highlight films, ceremony edits, reels, and family-ready masters.',
+    description: 'We turn wedding footage into emotional but polished films with careful music, clean story structure, graceful transitions, color consistency, and social-ready cutdowns.',
+    videoSrc: VIDEO_ASSETS.videoEditing,
+    outcomes: ['Wedding teaser', 'Highlight film', 'Ceremony edit', 'Instagram reels'],
+    process: ['Footage organization', 'Story and music pass', 'Color and sound polish', 'Family and social exports'],
+    tools: ['Premiere Pro', 'DaVinci Resolve', 'Audition', 'Frame.io']
+  }
+];
 
 export const INITIAL_FAQS: FAQItem[] = [
   {

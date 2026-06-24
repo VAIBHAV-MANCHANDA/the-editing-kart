@@ -63,27 +63,82 @@ export default function StudioScene3D({ className = '', activeTone = 'precision'
       const lineMaterial = new THREE.LineBasicMaterial({ color: palette.muted, transparent: true, opacity: 0.36 });
       const wireMaterial = new THREE.LineBasicMaterial({ color: palette.white, transparent: true, opacity: 0.22 });
 
-      const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.15, 1), baseMaterial);
-      root.add(core);
+      const cameraRig = new THREE.Group();
+      root.add(cameraRig);
 
-      const coreWire = new THREE.LineSegments(
-        new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.18, 1)),
-        wireMaterial
+      const cameraBody = new THREE.Mesh(new THREE.BoxGeometry(2.35, 1.38, 0.95), baseMaterial);
+      cameraBody.position.set(-0.2, 0.15, 0);
+      cameraRig.add(cameraBody);
+
+      const bodyFace = new THREE.Mesh(new THREE.BoxGeometry(2.12, 1.12, 0.035), paleMaterial);
+      bodyFace.position.set(-0.2, 0.15, 0.49);
+      cameraRig.add(bodyFace);
+
+      const viewfinder = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.46, 0.62), baseMaterial);
+      viewfinder.position.set(-0.7, 1.08, -0.1);
+      viewfinder.rotation.z = -0.06;
+      cameraRig.add(viewfinder);
+
+      const handle = new THREE.Mesh(new THREE.BoxGeometry(1.55, 0.18, 0.22), yellowMaterial);
+      handle.position.set(-0.55, 1.52, -0.02);
+      cameraRig.add(handle);
+
+      const lensGroup = new THREE.Group();
+      lensGroup.position.set(0.95, 0.14, 0.7);
+      cameraRig.add(lensGroup);
+
+      const rearLens = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.78, 0.72, 48), baseMaterial);
+      rearLens.rotation.x = Math.PI / 2;
+      rearLens.position.z = 0.18;
+      lensGroup.add(rearLens);
+
+      const frontLens = new THREE.Mesh(new THREE.CylinderGeometry(0.52, 0.64, 0.82, 48), paleMaterial);
+      frontLens.rotation.x = Math.PI / 2;
+      frontLens.position.z = 0.85;
+      lensGroup.add(frontLens);
+
+      const glassMaterial = new THREE.MeshStandardMaterial({ color: palette.ink, metalness: 0.2, roughness: 0.12, transparent: true, opacity: 0.88 });
+      const glass = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.43, 0.43, 0.035, 48),
+        glassMaterial
       );
-      root.add(coreWire);
+      glass.rotation.x = Math.PI / 2;
+      glass.position.z = 1.29;
+      lensGroup.add(glass);
 
-      const ringGroup = new THREE.Group();
-      root.add(ringGroup);
+      const focusRing = new THREE.Mesh(new THREE.TorusGeometry(0.7, 0.025, 12, 72), yellowMaterial);
+      focusRing.position.z = 0.52;
+      lensGroup.add(focusRing);
 
-      for (let i = 0; i < 3; i += 1) {
-        const ring = new THREE.Mesh(
-          new THREE.TorusGeometry(1.85 + i * 0.52, 0.012, 12, 96),
-          i === 1 ? yellowMaterial : paleMaterial
-        );
-        ring.rotation.x = Math.PI / 2 + i * 0.38;
-        ring.rotation.y = i * 0.28;
-        ringGroup.add(ring);
+      const apertureRing = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.012, 12, 72), wireMaterial);
+      apertureRing.position.z = 1.32;
+      lensGroup.add(apertureRing);
+
+      const railGroup = new THREE.Group();
+      railGroup.position.set(0.1, -0.95, 0.15);
+      cameraRig.add(railGroup);
+
+      for (let i = 0; i < 2; i += 1) {
+        const rail = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 3.7, 24), paleMaterial);
+        rail.rotation.z = Math.PI / 2;
+        rail.position.y = i === 0 ? -0.12 : 0.12;
+        railGroup.add(rail);
       }
+
+      const matteBox = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.9, 0.12), baseMaterial);
+      matteBox.position.set(0.95, 0.14, 2.15);
+      matteBox.rotation.z = 0.03;
+      cameraRig.add(matteBox);
+
+      const slate = new THREE.Group();
+      slate.position.set(-2.25, -0.5, 0.45);
+      slate.rotation.z = -0.18;
+      cameraRig.add(slate);
+
+      const slateBody = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.68, 0.045), paleMaterial);
+      const slateTop = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.12, 0.055), yellowMaterial);
+      slateTop.position.y = 0.4;
+      slate.add(slateBody, slateTop);
 
       const timeline = new THREE.Group();
       timeline.position.set(0, -1.95, 0);
@@ -119,8 +174,8 @@ export default function StudioScene3D({ className = '', activeTone = 'precision'
 
       const linePoints = [];
       for (let i = 0; i < 64; i += 1) {
-        const angle = (i / 63) * Math.PI * 2;
-        linePoints.push(new THREE.Vector3(Math.cos(angle) * 3.9, Math.sin(angle * 2) * 0.3, Math.sin(angle) * 1.8));
+        const x = -3.2 + (i / 63) * 6.4;
+        linePoints.push(new THREE.Vector3(x, Math.sin(i * 0.35) * 0.18 - 2.35, Math.cos(i * 0.25) * 0.22));
       }
       root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(linePoints), lineMaterial));
 
@@ -146,12 +201,13 @@ export default function StudioScene3D({ className = '', activeTone = 'precision'
         const t = clock.getElapsedTime() + toneOffset;
         root.rotation.y = Math.sin(t * 0.18) * 0.22;
         root.rotation.x = Math.sin(t * 0.12) * 0.08;
-        core.rotation.x = t * 0.42;
-        core.rotation.y = t * 0.32;
-        coreWire.rotation.x = -t * 0.24;
-        coreWire.rotation.y = t * 0.2;
-        ringGroup.rotation.z = t * 0.18;
-        frameGroup.rotation.y = t * 0.24;
+        cameraRig.rotation.y = Math.sin(t * 0.32) * 0.18;
+        cameraRig.rotation.x = Math.sin(t * 0.24) * 0.05;
+        lensGroup.rotation.z = Math.sin(t * 0.7) * 0.04;
+        focusRing.rotation.z = t * 0.75;
+        apertureRing.rotation.z = -t * 0.45;
+        slate.rotation.z = -0.18 + Math.sin(t * 0.9) * 0.05;
+        frameGroup.rotation.y = t * 0.18;
         timeline.children.forEach((child, i) => {
           child.position.y = -0.02 + Math.sin(t * 1.5 + i * 0.7) * 0.08;
         });
@@ -174,7 +230,7 @@ export default function StudioScene3D({ className = '', activeTone = 'precision'
           const mesh = obj as { geometry?: { dispose?: () => void } };
           mesh.geometry?.dispose?.();
         });
-        [baseMaterial, yellowMaterial, paleMaterial, lineMaterial, wireMaterial].forEach(material => material.dispose());
+        [baseMaterial, yellowMaterial, paleMaterial, lineMaterial, wireMaterial, glassMaterial].forEach(material => material.dispose());
       };
     };
 
