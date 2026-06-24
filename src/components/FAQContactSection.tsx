@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { TargetCountry, FAQItem, BollywoodPreset } from '../types';
+import { TargetCountry, FAQItem, CreativePreset } from '../types';
 import { COUNTRIES, INITIAL_FAQS, TESTIMONIALS } from '../data';
 import { ArrowRight, CheckCircle2, ChevronRight, FolderDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface FAQContactSectionProps {
   selectedCountry: TargetCountry;
-  bollywoodPreset?: BollywoodPreset;
+  creativePreset?: CreativePreset;
 }
 
 export default function FAQContactSection({ selectedCountry }: FAQContactSectionProps) {

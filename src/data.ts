@@ -63,81 +63,111 @@ export const COUNTRIES: Record<TargetCountry, CountryConfig> = {
   }
 };
 
+const assetUrl = (filename: string) => new URL(`../assets/${filename}`, import.meta.url).href;
+
+const VIDEO_ASSETS = {
+  videoEditing: assetUrl('VIDEO EDITING.mp4'),
+  advancedVideoEditing: assetUrl('ADVANCE VIDEO EDITING.mp4'),
+  colorGrading: assetUrl('COLOR GRADING.mp4'),
+  cgiVfx: assetUrl('CGI & VFX.mp4'),
+  threeD: assetUrl('3D(1).mp4'),
+  aiOne: assetUrl('Ai(1).mp4'),
+  aiTwo: assetUrl('Ai(2).mp4'),
+};
+
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
-    id: 'p1',
-    title: 'Veloce Motors — Cinematic Brand Launch',
-    category: 'video',
-    client: 'Veloce Supercars',
-    location: 'California, US',
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=805',
-    stats: { label: 'In-app Conversions', value: '+142%' },
-    duration: '2 minutes 40 seconds',
-    challenges: 'Blending high-speed action tracking shots with deep audio-reactive foley, custom sound design, and micro-framing adjustments to hold maximum user retention in the first 8 seconds.',
-    deliverableText: 'Ultimate color suite in DaVinci Resolve, heavy atmospheric soundscapes, custom cross-dissolves, speed ramps and 8K master output.'
+    id: 'video-editing',
+    title: 'VIDEO EDITING',
+    category: 'Video Editing',
+    client: 'Editorial Reel',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.videoEditing,
+    videoSrc: VIDEO_ASSETS.videoEditing,
+    stats: { label: 'Story polish', value: '100%' },
+    duration: 'Portfolio sample',
+    challenges: 'Cutting footage into a sharp, easy-to-watch sequence with clean rhythm, confident pacing, and smooth transitions.',
+    deliverableText: 'Timeline edit, pacing pass, transitions, sound alignment, and final social-ready export.'
   },
   {
-    id: 'p2',
-    title: 'Aura Premium Diffuser — 3D Product Visualizer',
-    category: '3d',
-    client: 'Aura Home Wellness',
-    location: 'London, UK',
-    image: 'https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&q=80&w=800',
-    stats: { label: 'Direct Sales Lift', value: '38%' },
-    duration: '1 minute loop',
-    challenges: 'Simulating complex fluid/smoke interaction representing aromatherapy vapor using highly advanced high-fidelity simulation and photorealistic lighting/materials setup in Cinema 4D and Redshift.',
-    deliverableText: '6 photorealistic high-res marketing renders plus two seamless looped commercials for instagram and web-head.'
+    id: 'advanced-video-editing',
+    title: 'ADVANCE VIDEO EDITING',
+    category: 'Advance Video Editing',
+    client: 'Premium Edit Reel',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.advancedVideoEditing,
+    videoSrc: VIDEO_ASSETS.advancedVideoEditing,
+    stats: { label: 'Retention focus', value: '+142%' },
+    duration: 'Portfolio sample',
+    challenges: 'Building a more dynamic sequence with visual accents, motion emphasis, tighter hooks, and elevated post-production polish.',
+    deliverableText: 'Advanced timeline treatment, speed ramps, motion graphics, beat-synced cuts, audio sweetening, and export mastering.'
   },
   {
-    id: 'p3',
-    title: 'Neon Tokyo — Sci-Fi CGI City Overhaul',
-    category: 'cgi',
-    client: 'Studio Shinto',
-    location: 'Sydney, Australia',
-    image: 'https://images.unsplash.com/photo-1540959733332-eab4deceeaf7?auto=format&fit=crop&q=80&w=800',
-    stats: { label: 'Audience Engagement', value: '4.8M Views' },
-    duration: '35 seconds sequence',
-    challenges: 'Integrating high-fidelity holographic advertisements, flying car wireframes, and rain reflections onto raw real-world footage by matching hand-held camera jitter and precise camera-tracking datasets.',
-    deliverableText: 'A finished composited scene, visual tracking charts, and complete multi-pass render comps.'
+    id: 'color-grading',
+    title: 'COLOR GRADING',
+    category: 'Color Grading',
+    client: 'Color Suite Reel',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.colorGrading,
+    videoSrc: VIDEO_ASSETS.colorGrading,
+    stats: { label: 'Look development', value: '4K' },
+    duration: 'Portfolio sample',
+    challenges: 'Balancing tone, contrast, skin, highlights, and mood so the final video feels intentional instead of simply corrected.',
+    deliverableText: 'Primary correction, secondary color work, contrast shaping, mood grade, and web-ready graded master.'
   },
   {
-    id: 'p4',
-    title: 'Apex Esports League — Championship Teaser',
-    category: 'video',
-    client: 'Apex Championship',
-    location: 'Berlin, Germany',
-    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800',
-    stats: { label: 'Active Retweets', value: '25K+' },
-    duration: '45 seconds hyper-teaser',
-    challenges: 'Stitching fragmented twitch gameplays, dynamic graphics overlays, neon lighting strokes and bass-heavy dynamic effects to craft a high-energy adrenaline pumping promo.',
-    deliverableText: 'Dynamic keyframe motion graphics, premium game-sfx mixing, optimized high compression configurations for multi-network delivery.'
+    id: 'cgi-vfx',
+    title: 'CGI & VFX',
+    category: 'CGI & VFX',
+    client: 'Effects Reel',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.cgiVfx,
+    videoSrc: VIDEO_ASSETS.cgiVfx,
+    stats: { label: 'Visual impact', value: 'CGI' },
+    duration: 'Portfolio sample',
+    challenges: 'Combining crafted visual effects with footage so the added elements feel designed, cinematic, and believable.',
+    deliverableText: 'VFX polish, compositing, scene enhancement, effect timing, and final rendered output.'
   },
   {
-    id: 'p5',
-    title: 'Chronos Mechanical Elite — Luxury Wristwatch',
-    category: '3d',
-    client: 'Chronos AG',
-    location: 'Geneva, Switzerland',
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800',
-    stats: { label: 'Pre-order Subscriptions', value: '180%' },
-    duration: 'Exploded View rendering',
-    challenges: 'Precision CAD conversion mapping over 432 moving clockwork components, using customized hand-crafted procedural anodized gold, sapphire crystal, and polished chrome materials.',
-    deliverableText: 'A full 30-second technical assembly showcase, macro slow-motion loop, and 5 flat layout transparency frames.'
+    id: 'three-d',
+    title: '3D',
+    category: '3D',
+    client: '3D Reel',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.threeD,
+    videoSrc: VIDEO_ASSETS.threeD,
+    stats: { label: 'Product depth', value: '3D' },
+    duration: 'Portfolio sample',
+    challenges: 'Creating dimensional product or scene visuals that can carry a premium ad, explainer, or launch sequence.',
+    deliverableText: '3D animation preview, lighting pass, camera movement, material styling, and rendered video output.'
   },
   {
-    id: 'p6',
-    title: 'Post-Apocalypse Wasteland — Matte Painted Enviro',
-    category: 'cgi',
-    client: 'Vanguard Productions',
-    location: 'Auckland, NZ',
-    image: 'https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&q=80&w=800',
-    stats: { label: 'Production Cost Saved', value: 'US$120K' },
-    duration: '3 camera angles',
-    challenges: 'Establishing a sense of scale across dried-out cracked ground plates, decaying structural bridges and atmospheric toxic fog by keying green screen elements and merging them seamlessly.',
-    deliverableText: 'High dynamic range sky backdrops, depth map files, composited target screens for post-production team.'
+    id: 'ai-one',
+    title: 'AI VIDEO',
+    category: 'AI',
+    client: 'AI Reel 01',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.aiOne,
+    videoSrc: VIDEO_ASSETS.aiOne,
+    stats: { label: 'Creative range', value: 'AI' },
+    duration: 'Portfolio sample',
+    challenges: 'Using AI-led visuals as a production tool while still shaping the result through editorial judgment and finishing polish.',
+    deliverableText: 'AI visual generation support, edit selection, cleanup, pacing, sound pass, and export.'
+  },
+  {
+    id: 'ai-two',
+    title: 'AI CREATIVE',
+    category: 'AI',
+    client: 'AI Reel 02',
+    location: 'Studio Showcase',
+    image: VIDEO_ASSETS.aiTwo,
+    videoSrc: VIDEO_ASSETS.aiTwo,
+    stats: { label: 'Concept speed', value: 'AI' },
+    duration: 'Portfolio sample',
+    challenges: 'Turning AI-driven footage into a useful brand or content asset with stronger structure, timing, and finishing.',
+    deliverableText: 'AI concept refinement, visual sequencing, timing cleanup, music alignment, and final delivery.'
   }
 ];
-
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
@@ -181,7 +211,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: 'Head of Content',
     company: 'Shift Studio',
     country: 'australia',
-    text: 'Their video editing and speed ramps on our ad creatives pulled a massive increase in retention. Absolute legends down under! Our timezone offsets were handled with absolute priority and zero lag.',
+    text: 'Their video editing and speed ramps on our ad creatives delivered a clear increase in retention. The work felt polished, responsive, and easy to run across our timezone.',
     rating: 5
   },
   {
@@ -203,7 +233,7 @@ export const SERVICE_DETAILS_DATA = {
     deliverables: [
       'Multi-Cam narrative assembly & editorial curation',
       'Advanced High-Fidelity Sound Design & Foley atmospheres',
-      'Cinema grading suite with Hollywood-style DaVinci lutting',
+      'Cinema grading suite with refined DaVinci look development',
       'Social/ad format optimization (9:16 vertical hooks with custom kinetic typography)',
       'High frame rate stabilization and keyframe adjustments'
     ],

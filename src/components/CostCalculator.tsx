@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { TargetCountry, BollywoodPreset } from '../types';
+import { TargetCountry, CreativePreset } from '../types';
 import { COUNTRIES, CALCULATOR_BASE_PRICING } from '../data';
 import { Check, Calculator, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface CostCalculatorProps {
   selectedCountry: TargetCountry;
-  bollywoodPreset?: BollywoodPreset;
+  creativePreset?: CreativePreset;
 }
 
 type ServiceKey = 'video' | '3d' | 'cgi';

@@ -1,6 +1,6 @@
 export type TargetCountry = 'usa' | 'uk' | 'europe' | 'canada' | 'australia' | 'newzealand';
 
-export type BollywoodPreset = 'dhamaka' | 'romance' | 'royal' | 'gritty';
+export type CreativePreset = 'precision' | 'soft' | 'premium' | 'documentary';
 
 export interface CountryConfig {
   code: TargetCountry;
@@ -27,10 +27,11 @@ export interface ServiceDetail {
 export interface PortfolioItem {
   id: string;
   title: string;
-  category: 'video' | '3d' | 'cgi';
+  category: string;
   client: string;
   location: string;
-  image: string; // Unsplash URLs and vector-patterns
+  image: string;
+  videoSrc: string;
   stats: { label: string; value: string };
   duration: string;
   challenges: string;

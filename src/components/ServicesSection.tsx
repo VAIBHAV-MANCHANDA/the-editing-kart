@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { TargetCountry, TabPage, BollywoodPreset } from '../types';
+import { TargetCountry, TabPage, CreativePreset } from '../types';
 import { COUNTRIES, SERVICE_DETAILS_DATA } from '../data';
 import { Sliders, Grid, Layers, CheckCircle, Cpu, Command, Scissors, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import StudioScene3D from './StudioScene3D';
 
 interface ServicesSectionProps {
   selectedCountry: TargetCountry;
   setActiveTab: (tab: TabPage) => void;
-  bollywoodPreset?: BollywoodPreset;
+  creativePreset?: CreativePreset;
 }
 
 type ServiceTab = 'video' | '3d' | 'cgi';
@@ -132,8 +133,11 @@ export default function ServicesSection({ selectedCountry, setActiveTab }: Servi
                       <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200" alt="Graded" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       <span className="pill pill-dark absolute top-3 right-3">GRADED</span>
                     </div>
-                    <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${sliderPosition}%` }}>
-                      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200" alt="Raw" className="absolute inset-y-0 left-0 w-full h-full object-cover max-w-none grayscale contrast-[60%] brightness-[120%]" referrerPolicy="no-referrer" />
+                    <div
+                      className="absolute inset-0"
+                      style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+                    >
+                      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200" alt="Raw" className="w-full h-full object-cover grayscale contrast-[60%] brightness-[120%]" referrerPolicy="no-referrer" />
                       <span className="pill absolute top-3 left-3">RAW</span>
                     </div>
                     <div className="absolute inset-y-0 w-0.5 bg-white shadow-md" style={{ left: `${sliderPosition}%` }}>
@@ -158,7 +162,7 @@ export default function ServicesSection({ selectedCountry, setActiveTab }: Servi
                     <span className="pill">Redshift</span>
                   </div>
                   <div className="relative aspect-video rounded-xl overflow-hidden border border-[#E5E5E5]">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1200" alt="3D product" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                    <StudioScene3D className="w-full h-full bg-white" activeTone="premium" />
                     {isC3dWireframe && (
                       <div className="absolute inset-0 bg-[#0A0A0A]/75 flex items-center justify-center">
                         <svg className="absolute inset-0 w-full h-full opacity-60" fill="none" stroke="#FFFFFF" strokeWidth="0.8">

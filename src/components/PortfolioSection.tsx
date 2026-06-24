@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { TargetCountry, PortfolioItem, BollywoodPreset } from '../types';
+import { TargetCountry, PortfolioItem, CreativePreset } from '../types';
 import { COUNTRIES, PORTFOLIO_ITEMS } from '../data';
-import { X, Clock } from 'lucide-react';
+import { X, Clock, Play } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface PortfolioSectionProps {
   selectedCountry: TargetCountry;
-  bollywoodPreset?: BollywoodPreset;
+  creativePreset?: CreativePreset;
 }
 
 const HEIGHTS = ['aspect-[4/5]', 'aspect-[3/4]', 'aspect-[4/5]', 'aspect-[4/3]', 'aspect-[3/4]', 'aspect-[4/5]'];
 
 export default function PortfolioSection({ selectedCountry }: PortfolioSectionProps) {
-  const [filter, setFilter] = useState<'all' | 'video' | '3d' | 'cgi'>('all');
+  const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
   const country = COUNTRIES[selectedCountry];
 
@@ -22,11 +22,12 @@ export default function PortfolioSection({ selectedCountry }: PortfolioSectionPr
   const filteredItems = PORTFOLIO_ITEMS.filter(item => filter === 'all' || item.category === filter);
 
   const filters = [
-    { id: 'all',   label: 'All'   },
-    { id: 'video', label: 'Video' },
-    { id: '3d',    label: '3D'    },
-    { id: 'cgi',   label: 'CGI'   },
-  ] as const;
+    { id: 'all', label: 'All' },
+    ...Array.from(new Set(PORTFOLIO_ITEMS.map(item => item.category))).map(category => ({
+      id: category,
+      label: category,
+    })),
+  ];
 
   return (
     <section className="py-20" id="portfolio-container-section">
@@ -71,9 +72,24 @@ export default function PortfolioSection({ selectedCountry }: PortfolioSectionPr
               >
                 <div id={`portfolio-card-${item.id}`} className="pin-card cursor-pointer group" onClick={() => setSelectedProject(item)}>
                   <div className={`${HEIGHTS[index % HEIGHTS.length]} relative overflow-hidden`}>
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" referrerPolicy="no-referrer" />
+                    <video
+                      src={item.videoSrc}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      onMouseEnter={event => event.currentTarget.play().catch(() => undefined)}
+                      onMouseLeave={event => {
+                        event.currentTarget.pause();
+                        event.currentTarget.currentTime = 0;
+                      }}
+                    />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300" />
-                    <span className="pill pill-dark absolute top-3 left-3">{item.category.toUpperCase()}</span>
+                    <span className="pill pill-dark absolute top-3 left-3">{item.category}</span>
+                    <span className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-[#0A0A0A] flex items-center justify-center shadow-sm">
+                      <Play className="w-4 h-4 fill-current" />
+                    </span>
                     <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <span className="t-display font-serif font-bold text-white block">{formatVal(item.stats.value)}</span>
                       <span className="t-body text-white/80 font-medium block">{item.stats.label}</span>
@@ -106,7 +122,7 @@ export default function PortfolioSection({ selectedCountry }: PortfolioSectionPr
                 {/* Modal header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5E5E5]">
                   <div className="flex items-center gap-2">
-                    <span className="pill pill-dark">{selectedProject.category.toUpperCase()}</span>
+                    <span className="pill pill-dark">{selectedProject.category}</span>
                     <span className="t-body text-[#888888]">{selectedProject.client}</span>
                   </div>
                   <button id="btn-close-modal" onClick={() => setSelectedProject(null)} className="w-8 h-8 rounded-full border border-[#E5E5E5] flex items-center justify-center hover:bg-[#F7F7F7] transition-colors">
@@ -114,9 +130,17 @@ export default function PortfolioSection({ selectedCountry }: PortfolioSectionPr
                   </button>
                 </div>
 
-                {/* Hero image */}
-                <div className="aspect-video relative">
-                  <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                {/* Hero video */}
+                <div className="aspect-video relative bg-black">
+                  <video
+                    key={selectedProject.id}
+                    src={selectedProject.videoSrc}
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    playsInline
+                    preload="auto"
+                  />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 p-6">
                     <h2 className="t-display font-serif font-bold text-white">{selectedProject.title}</h2>
                     <span className="t-body text-white/70 block mt-1">{selectedProject.location}</span>
@@ -133,7 +157,7 @@ export default function PortfolioSection({ selectedCountry }: PortfolioSectionPr
                   ].map(m => (
                     <div key={m.label}>
                       <span className="t-body text-[#888888] uppercase tracking-wider block">{m.label}</span>
-                      <span className={`t-body capitalize block mt-0.5 ${m.bold ? 'font-bold text-[#0A0A0A]' : 'font-semibold text-[#444444]'}`}>{m.value}</span>
+                      <span className={`t-body block mt-0.5 ${m.bold ? 'font-bold text-[#0A0A0A]' : 'font-semibold text-[#444444]'}`}>{m.value}</span>
                     </div>
                   ))}
                 </div>

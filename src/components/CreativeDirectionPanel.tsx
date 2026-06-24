@@ -1,37 +1,37 @@
 import React from 'react';
-import { BollywoodPreset } from '../types';
-import { Flame, Heart, Crown, Skull } from 'lucide-react';
+import { CreativePreset } from '../types';
+import { Aperture, AudioLines, Layers3, ScanLine } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-interface BollywoodVibePanelProps {
-  currentPreset: BollywoodPreset;
-  onPresetChange: (preset: BollywoodPreset) => void;
+interface CreativeDirectionPanelProps {
+  currentPreset: CreativePreset;
+  onPresetChange: (preset: CreativePreset) => void;
 }
 
-const PRESETS: { id: BollywoodPreset; label: string; Icon: React.ElementType }[] = [
-  { id: 'dhamaka', label: 'Dhamaka Action', Icon: Flame },
-  { id: 'romance', label: 'Dream Romance',  Icon: Heart },
-  { id: 'royal',   label: 'Shahi Grandeur', Icon: Crown },
-  { id: 'gritty',  label: 'Gritty Realism', Icon: Skull },
+const PRESETS: { id: CreativePreset; label: string; Icon: React.ElementType }[] = [
+  { id: 'precision',   label: 'Precision Cut',    Icon: ScanLine },
+  { id: 'soft',        label: 'Soft Editorial',   Icon: Aperture },
+  { id: 'premium',     label: 'Premium CGI',      Icon: Layers3 },
+  { id: 'documentary', label: 'Documentary Tone', Icon: AudioLines },
 ];
 
-const DIALOGUES: Record<BollywoodPreset, string> = {
-  dhamaka: '💥 "Singham Entry active — bass impact at 100%!"',
-  romance: '🌸 "Wind machine on level 9. Swiss pastel grading enabled."',
-  royal:   '👑 "Shahi durbar CGI set. Majestic lens filter on."',
-  gritty:  '🔪 "180° shutter, raw grain, uncensored foley. Cut!"',
+const DIRECTION_NOTES: Record<CreativePreset, string> = {
+  precision: 'Tight pacing, clean hooks, and controlled sound impact.',
+  soft: 'Warm grade, measured motion, and elegant visual restraint.',
+  premium: 'Detailed CGI, composed frames, and refined finishing.',
+  documentary: 'Natural texture, honest rhythm, and grounded sound design.',
 };
 
-export default function BollywoodVibePanel({ currentPreset, onPresetChange }: BollywoodVibePanelProps) {
+export default function CreativeDirectionPanel({ currentPreset, onPresetChange }: CreativeDirectionPanelProps) {
   return (
-    <div className="bg-[#F7F7F7] border-b border-[#E5E5E5] py-4 px-4" id="bollywood-lens-control-panel">
+    <div className="bg-[#F7F7F7] border-b border-[#E5E5E5] py-4 px-4" id="creative-direction-control-panel">
       <div className="section-wrap">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
 
           {/* Label */}
           <div className="shrink-0 space-y-0.5">
-            <div className="t-body font-semibold text-[#0A0A0A] uppercase tracking-widest">Director Mode</div>
-            <div className="t-body text-[#888888]">Switch editing style</div>
+            <div className="t-body font-semibold text-[#0A0A0A] uppercase tracking-widest">Creative Direction</div>
+            <div className="t-body text-[#888888]">Choose the finishing tone</div>
           </div>
 
           {/* Preset pills */}
@@ -64,7 +64,7 @@ export default function BollywoodVibePanel({ currentPreset, onPresetChange }: Bo
               transition={{ duration: 0.2 }}
               className="shrink-0 hidden lg:block max-w-xs t-body text-[#888888] italic text-right leading-snug"
             >
-              {DIALOGUES[currentPreset]}
+              {DIRECTION_NOTES[currentPreset]}
             </motion.div>
           </AnimatePresence>
 

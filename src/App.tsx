@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { TargetCountry, TabPage, BollywoodPreset } from './types';
+import { TargetCountry, TabPage, CreativePreset } from './types';
 import { COUNTRIES } from './data';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
@@ -13,14 +13,15 @@ import PortfolioSection from './components/PortfolioSection';
 import CostCalculator from './components/CostCalculator';
 import AboutSection from './components/AboutSection';
 import FAQContactSection from './components/FAQContactSection';
-import BollywoodVibePanel from './components/BollywoodVibePanel';
+import CreativeDirectionPanel from './components/CreativeDirectionPanel';
+import StudioMotionStrip from './components/StudioMotionStrip';
 import { ArrowRight, Film, Heart, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [selectedCountry, setSelectedCountry] = useState<TargetCountry>('usa');
   const [activeTab, setActiveTab] = useState<TabPage>('home');
-  const [bollywoodPreset, setBollywoodPreset] = useState<BollywoodPreset>('dhamaka');
+  const [creativePreset, setCreativePreset] = useState<CreativePreset>('precision');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -42,15 +43,16 @@ export default function App() {
             <HeroSection
               selectedCountry={selectedCountry}
               setActiveTab={setActiveTab}
-              bollywoodPreset={bollywoodPreset}
+              creativePreset={creativePreset}
             />
+            <StudioMotionStrip setActiveTab={setActiveTab} />
             <ServicesSection
               selectedCountry={selectedCountry}
               setActiveTab={setActiveTab}
-              bollywoodPreset={bollywoodPreset}
+              creativePreset={creativePreset}
             />
             <div className="bg-[#F7F7F7] py-20">
-              <PortfolioSection selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+              <PortfolioSection selectedCountry={selectedCountry} creativePreset={creativePreset} />
               <div className="text-center mt-10">
                 <button
                   onClick={() => setActiveTab('portfolio')}
@@ -60,42 +62,42 @@ export default function App() {
                 </button>
               </div>
             </div>
-            <FAQContactSection selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+            <FAQContactSection selectedCountry={selectedCountry} creativePreset={creativePreset} />
           </motion.div>
         );
 
       case 'services':
         return (
           <motion.div key="services" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <ServicesSection selectedCountry={selectedCountry} setActiveTab={setActiveTab} bollywoodPreset={bollywoodPreset} />
+            <ServicesSection selectedCountry={selectedCountry} setActiveTab={setActiveTab} creativePreset={creativePreset} />
           </motion.div>
         );
 
       case 'portfolio':
         return (
           <motion.div key="portfolio" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <PortfolioSection selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+            <PortfolioSection selectedCountry={selectedCountry} creativePreset={creativePreset} />
           </motion.div>
         );
 
       case 'calculator':
         return (
           <motion.div key="calculator" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <CostCalculator selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+            <CostCalculator selectedCountry={selectedCountry} creativePreset={creativePreset} />
           </motion.div>
         );
 
       case 'about':
         return (
           <motion.div key="about" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <AboutSection selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+            <AboutSection selectedCountry={selectedCountry} creativePreset={creativePreset} />
           </motion.div>
         );
 
       case 'contact':
         return (
           <motion.div key="contact" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.35 }}>
-            <FAQContactSection selectedCountry={selectedCountry} bollywoodPreset={bollywoodPreset} />
+            <FAQContactSection selectedCountry={selectedCountry} creativePreset={creativePreset} />
           </motion.div>
         );
 
@@ -121,7 +123,7 @@ export default function App() {
         setSelectedCountry={setSelectedCountry}
       />
 
-      <BollywoodVibePanel currentPreset={bollywoodPreset} onPresetChange={setBollywoodPreset} />
+      <CreativeDirectionPanel currentPreset={creativePreset} onPresetChange={setCreativePreset} />
 
       <main className="flex-grow bg-white">
         <AnimatePresence mode="wait">

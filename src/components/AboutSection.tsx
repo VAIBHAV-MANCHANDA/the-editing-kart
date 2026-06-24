@@ -1,12 +1,12 @@
 import React from 'react';
-import { TargetCountry, BollywoodPreset } from '../types';
+import { TargetCountry, CreativePreset } from '../types';
 import { COUNTRIES } from '../data';
 import { Workflow } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AboutSectionProps {
   selectedCountry: TargetCountry;
-  bollywoodPreset?: BollywoodPreset;
+  creativePreset?: CreativePreset;
 }
 
 const MILESTONES = [
@@ -40,7 +40,7 @@ export default function AboutSection({ selectedCountry }: AboutSectionProps) {
               A remote post-production house built for speed.
             </h2>
             <p className="t-body text-[#444444] leading-relaxed">
-              We founded <strong className="text-[#0A0A0A] font-semibold">The Editing Kart</strong> because modern agencies were tired of bloated post-production bureaucracies. High-end video, 3D and CGI shouldn't take three months and endless Zoom calls to align on a cut.
+              We founded <strong className="text-[#0A0A0A] font-semibold">The Editing Kart</strong> for modern agencies that need high-end post-production without slow handoffs. Video, 3D, and CGI should move with clarity from brief to final cut.
             </p>
             <p className="t-body text-[#888888] leading-relaxed">
               By hiring dedicated specialists and standardizing pipelines across North America, Europe, and Oceania, we support your timezones. When you pack up in NYC or London, our Oceanic nodes edit overnight and deliver a revised cut before you clock in at 9 AM.
